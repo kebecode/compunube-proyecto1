@@ -1,0 +1,22 @@
+config:
+  target: "http://192.168.40.2"
+  phases:
+    - duration: 20
+      arrivalRate: 1000
+      name: Carga rapida
+    - duration: 40
+      arrivalRate: 40
+      rampTo: 500
+      name: Carga incremental
+    - duration: 60
+      arrivalRate: 200
+      maxVusers: 4000
+      name: Carga sostenida
+scenarios:
+  - name: "Load"
+    flow:
+      - get:
+          url: "/"
+          capture:
+            - json: "$.data_pid"
+              as: "pid"
